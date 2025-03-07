@@ -34,6 +34,11 @@ category = f.split("-")[2].rstrip("2")
 
 data_frame = pd.read_csv(f)
 
+data_frame["participant"] = participant
+data_frame["label"] = label
+data_frame["category"] = category
+
+
 # --------------------------------------------------------------
 # Read all files
 # --------------------------------------------------------------
