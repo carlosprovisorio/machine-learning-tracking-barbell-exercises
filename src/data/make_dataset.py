@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 from glob import glob
 
 # --------------------------------------------------------------
@@ -23,14 +24,14 @@ len(files)
 # Extract features from filename
 # --------------------------------------------------------------
 
-data_path = "../../data/raw/MetaMotion/"
-f = files[0]
+data_path = os.path.normpath("../../data/raw/MetaMotion")
+f = os.path.normpath(files[0])
 
-participant = f.split("_")[0].replace(data_path, "")
+relative_path = f.replace(data_path + os.sep, "", 1)
 
-label = f.split("-")[1]
-
-category = f.split("-")[2].rstrip("2")
+participant = relative_path.split("-")[0]
+label = relative_path.split("-")[1]
+category = relative_path.split("-")[2].rstrip("2")
 
 data_frame = pd.read_csv(f)
 
