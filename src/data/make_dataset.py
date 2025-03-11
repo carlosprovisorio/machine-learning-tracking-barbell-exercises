@@ -24,11 +24,11 @@ len(files)
 # --------------------------------------------------------------
 
 data_path = "../../data/raw/MetaMotion\\"
-f = files[0]
+f = files[1]
 
 participant = f.split("-")[0].replace(data_path, "")
 label = f.split("-")[1]
-category = f.split("-")[2].rstrip("2")
+category = f.split("-")[2].rstrip("123").rstrip("_MetaWear_2019")
 
 data_frame = pd.read_csv(f)
 
@@ -40,6 +40,32 @@ data_frame["category"] = category
 # --------------------------------------------------------------
 # Read all files
 # --------------------------------------------------------------
+
+acc_df = pd.DataFrame()
+gey_df = pd.DataFrame()
+
+acc_set = 1
+gyr_set = 1
+
+for f in files:
+    participant = f.split("-")[0].replace(data_path, "")
+    label = f.split("-")[1]
+    category = f.split("-")[2].rstrip("123").rstrip("_MetaWear_2019")
+
+    data_frame = pd.read_csv(f)
+
+    data_frame["participant"] = participant
+    data_frame["label"] = label
+    data_frame["category"] = category
+
+    if "Accelerometer" in f:
+        acc_df = pd.concat([acc_df, data_frame])
+
+    if "Gyroscope" in f:
+        gyr_df = pd.concat([gyr_df, data_frame])
+
+
+
 
 
 # --------------------------------------------------------------
