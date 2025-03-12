@@ -123,7 +123,6 @@ def read_data_from_files(files):
             gyr_set += 1
             gyr_df = pd.concat([gyr_df, data_frame])
 
-
     acc_df.index = pd.to_datetime(acc_df["epoch (ms)"], unit="ms")
     gyr_df.index = pd.to_datetime(gyr_df["epoch (ms)"], unit="ms")
 
@@ -142,7 +141,21 @@ acc_df, gyr_df = read_data_from_files(files)
 # --------------------------------------------------------------
 # Merging datasets
 # --------------------------------------------------------------
+data_merged = pd.concat([acc_df.iloc[:,:3], gyr_df], axis=1)
 
+#rename columns
+data_merged.columns = [
+    "acc_x",
+    "acc_y",
+    "acc_z",
+    "gyr_x",
+    "gyr_y",
+    "gyr_z",
+    "label",
+    "category",
+    "participant",
+    "set",
+]
 
 # --------------------------------------------------------------
 # Resample data (frequency conversion)
