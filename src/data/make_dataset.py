@@ -93,6 +93,51 @@ del gyr_df["elapsed (s)"]
 # Turn into function
 # --------------------------------------------------------------
 
+files = glob("../../data/raw/MetaMotion/*.csv")
+
+def read_data_from_files(files):
+    acc_df = pd.DataFrame()
+    gyr_df = pd.DataFrame()
+
+    acc_set = 1
+    gyr_set = 1
+
+    for f in files:
+        participant = f.split("-")[0].replace(data_path, "")
+        label = f.split("-")[1]
+        category = f.split("-")[2].rstrip("123").rstrip("_MetaWear_2019")
+
+        data_frame = pd.read_csv(f)
+
+        data_frame["participant"] = participant
+        data_frame["label"] = label
+        data_frame["category"] = category
+
+        if "Accelerometer" in f:
+            data_frame["set"] = acc_set
+            acc_set += 1
+            acc_df = pd.concat([acc_df, data_frame])
+
+        if "Gyroscope" in f:
+            data_frame["set"] = gyr_set
+            gyr_set += 1
+            gyr_df = pd.concat([gyr_df, data_frame])
+
+
+    acc_df.index = pd.to_datetime(acc_df["epoch (ms)"], unit="ms")
+    gyr_df.index = pd.to_datetime(gyr_df["epoch (ms)"], unit="ms")
+
+    del acc_df["epoch (ms)"]
+    del acc_df["time (01:00)"]
+    del acc_df["elapsed (s)"]
+
+    del gyr_df["epoch (ms)"]
+    del gyr_df["time (01:00)"]
+    del gyr_df["elapsed (s)"]
+
+    return acc_df, gyr_df
+
+acc_df, gyr_df = read_data_from_files(files)
 
 # --------------------------------------------------------------
 # Merging datasets
