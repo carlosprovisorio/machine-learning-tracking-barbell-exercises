@@ -42,7 +42,7 @@ data_frame["category"] = category
 # --------------------------------------------------------------
 
 acc_df = pd.DataFrame()
-gey_df = pd.DataFrame()
+gyr_df = pd.DataFrame()
 
 acc_set = 1
 gyr_set = 1
@@ -59,14 +59,17 @@ for f in files:
     data_frame["category"] = category
 
     if "Accelerometer" in f:
+        data_frame["set"] = acc_set
+        acc_set += 1
         acc_df = pd.concat([acc_df, data_frame])
 
     if "Gyroscope" in f:
+        data_frame["set"] = gyr_set
+        gyr_set += 1
         gyr_df = pd.concat([gyr_df, data_frame])
 
-
-
-
+# acc_df[acc_df["set"] == 6]
+# gyr_df[gyr_df["set"] == 10]
 
 # --------------------------------------------------------------
 # Working with datetimes
