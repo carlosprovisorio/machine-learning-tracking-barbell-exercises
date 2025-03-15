@@ -12,6 +12,10 @@ data_frame = pd.read_pickle("../../data/interim/01_data_processed.pkl")
 # Plot single columns
 # --------------------------------------------------------------
 
+set_df = data_frame[data_frame["set"] == 1]
+plt.plot(set_df["acc_y"])
+
+plt.plot(set_df["acc_y"].reset_index(drop=True))
 
 # --------------------------------------------------------------
 # Plot all exercises
