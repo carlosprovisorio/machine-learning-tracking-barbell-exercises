@@ -6,6 +6,7 @@ import matplotlib as mpl
 # Load data
 # --------------------------------------------------------------
 
+data_frame = pd.read_pickle("../../data/interim/01_data_processed.pkl")
 
 # --------------------------------------------------------------
 # Plot single columns
