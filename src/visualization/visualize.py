@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from IPython.display import display
 
 # --------------------------------------------------------------
 # Load data
@@ -21,6 +22,9 @@ plt.plot(set_df["acc_y"].reset_index(drop=True))
 # Plot all exercises
 # --------------------------------------------------------------
 
+for label in data_frame["label"].unique():
+    subset = data_frame[data_frame["label"] == label]
+    display(subset.head(2))
 
 # --------------------------------------------------------------
 # Adjust plot settings
