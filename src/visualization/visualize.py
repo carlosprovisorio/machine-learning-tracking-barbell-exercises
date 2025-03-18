@@ -24,7 +24,17 @@ plt.plot(set_df["acc_y"].reset_index(drop=True))
 
 for label in data_frame["label"].unique():
     subset = data_frame[data_frame["label"] == label]
-    display(subset.head(2))
+    fig, ax = plt.subplots()
+    plt.plot(subset["acc_y"].reset_index(drop=True), label=label)
+    plt.legend()
+    plt.show()
+
+for label in data_frame["label"].unique():
+    subset = data_frame[data_frame["label"] == label]
+    fig, ax = plt.subplots()
+    plt.plot(subset[:100]["acc_y"].reset_index(drop=True), label=label)
+    plt.legend()
+    plt.show()
 
 # --------------------------------------------------------------
 # Adjust plot settings
