@@ -74,18 +74,41 @@ plt.legend()
 
 label = "squat"
 participant = "A"
-all_axis_df = data_frame.query(f"label == '{label}'").query(f"participant == '{participant}'").reset_index()
+all_axis_df = (
+    data_frame.query(f"label == '{label}'")
+    .query(f"participant == '{participant}'")
+    .reset_index()
+)
 
 fig, ax = plt.subplots()
 all_axis_df[["acc_x", "acc_y", "acc_z"]].plot(ax=ax)
 ax.set_ylabel("acc_y")
 ax.set_xlabel("samples")
-plt.legend
+plt.legend()
 
 # --------------------------------------------------------------
 # Create a loop to plot all combinations per sensor
 # --------------------------------------------------------------
 
+labels = data_frame["label"].unique()
+participants = data_frame["participant"].unique()
+
+for label in labels:
+    for participant in participants:
+        all_axis_df = (
+            data_frame.query(f"label == '{label}'")
+            .query(f"participant == '{participant}'")
+            .reset_index()
+        )
+
+        if len(all_axis_df) > 0:
+
+            fig, ax = plt.subplots()
+            all_axis_df[["acc_x", "acc_y", "acc_z"]].plot(ax=ax)
+            ax.set_ylabel("acc_y")
+            ax.set_xlabel("samples")
+            plt.title(f"{label} ({participant})".title())
+            plt.legend()
 
 # --------------------------------------------------------------
 # Combine plots in one figure
