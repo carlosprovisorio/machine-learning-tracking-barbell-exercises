@@ -110,6 +110,24 @@ for label in labels:
             plt.title(f"{label} ({participant})".title())
             plt.legend()
 
+for label in labels:
+    for participant in participants:
+        all_axis_df = (
+            data_frame.query(f"label == '{label}'")
+            .query(f"participant == '{participant}'")
+            .reset_index()
+        )
+
+        if len(all_axis_df) > 0:
+
+            fig, ax = plt.subplots()
+            all_axis_df[["gyr_x", "gyr_y", "gyr_z"]].plot(ax=ax)
+            ax.set_ylabel("gyr_y")
+            ax.set_xlabel("samples")
+            plt.title(f"{label} ({participant})".title())
+            plt.legend()
+
+
 # --------------------------------------------------------------
 # Combine plots in one figure
 # --------------------------------------------------------------
